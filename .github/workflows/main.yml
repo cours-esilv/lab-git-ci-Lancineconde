@@ -1,19 +1,11 @@
-name: CI - Build & Test
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      # Installe java 8 sur l'agent
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      # Add more steps for building and testing your application here
+      # Compile notre application
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package
